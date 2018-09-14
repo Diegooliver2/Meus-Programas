@@ -1,0 +1,108 @@
+#include <stdio.h>
+
+void funcao(int * a, int * n){
+     int i;
+     for(i = 0; i < n; i++){
+          a[i] = a[i] * a[i];
+     }
+}
+
+
+int *myrealloc(int *old, int tamNovo, int tamAnt){
+
+     int *novo;
+
+     if(tamAnt == tamNovo){
+          return old;
+     }
+     novo = (int*) malloc(tamNovo * sizeof(int));
+
+     //tamNovo > tamAnt
+     if(tamNovo > tamAnt){
+
+          memcpy(novo, old, tamNovo * sizeof(int));
+          free(old);
+          return novo;
+     }
+
+     else{
+
+          memcpy(novo, old, tamNovo* sizeof(int));
+          free(old);
+          return novo;
+     }
+}
+
+
+void myrealloc2(int *old, int tamNovo, int tamAnt){
+
+     int *novo;
+
+     if(tamAnt == tamNovo){
+
+     }
+     novo = (int**) malloc(tamNovo * sizeof(int));
+
+     //tamNovo > tamAnt
+     if(tamNovo > tamAnt){
+
+          memcpy(novo, old, tamNovo * sizeof(int));
+          *old = *novo;
+
+     }
+
+     else{
+
+          memcpy(novo, old, tamNovo* sizeof(int));
+          *old = *novo;
+
+     }
+}
+
+
+
+int main(){
+
+     int *x;
+     int n = 5;
+     int i;
+
+     x = (int*) malloc(n*sizeof(int));
+     printf("end x = %p\n", x);
+
+     for(i = 0; i < n; i++){
+          x[i] = i + 1;
+     }
+
+     funcao(x, n);
+
+     for(i = 0; i < n; i++){
+          printf("%i ", x[i]);
+     }
+
+     printf("\n\n-----------------------------------------------------------------------------------\n\n");
+
+
+
+     int nn = 10;
+
+     myrealloc(x, nn, n);
+
+     for(i = 0; i < nn; i++){
+          x[i] = i + 1;
+     }
+
+     funcao(x, nn);
+
+     printf("end x = %p\n", x);
+
+     for(i = 0; i < nn; i++){
+          printf("%i ", x[i]);
+     }
+
+     printf("\n");
+
+     free(x);
+
+     return 0;
+}
